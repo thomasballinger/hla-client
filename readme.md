@@ -31,3 +31,10 @@ messages about events occuring. These events have the format
     }
 
 
+
+Install
+-------
+
+I used
+http://twistedpairdevelopment.wordpress.com/2012/02/21/installing-pyglet-in-mac-os-x/
+for installation on OSX Lion.
