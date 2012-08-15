@@ -26,6 +26,8 @@ messages about events occuring. These events have the format
         distance: 7 (how close client has to be to receive event),
         url: 'http://www.northernsun.com/images/thumb/2241Spaceship.jpg'
         (url for media to display/play if client is interactive)
+        duration: 200 (number of milliseconds it is suggested for the
+          client to maintain this event, if transient)
     }
 
 
