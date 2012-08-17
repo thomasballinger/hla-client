@@ -50,25 +50,31 @@ class World(object):
         return self.events
 
     def move(self, direction):
-        wasd = {'w':(1,0), 'a':(0,-1), 's':(-1, 0), 'd':(0, 1)}
+        wasd = {'w':(0, -1), 'a':(-1,0), 's':(0, 1), 'd':(1, 0)}
         if direction in wasd:
             m = wasd[direction]
             self.pos[0] += m[0]
             self.pos[1] += m[1]
 
-
 def input_test():
     w = World()
-    e = Event(json.dumps({
-        'x':4,
-        'y':5,
-        'name':'horn',
-        'distance':10,
-        'url':'http://www.northernsun.com/images/thumb/2241Spaceship.jpg',
-        'duration':5000
-        }))
-    w.register_event(e)
+    import random
+    def create_random_event():
+        e = Event(json.dumps({
+            'x':random.randint(-10, 10),
+            'y':random.randint(-10, 10),
+            'name':'horn',
+            'distance':10,
+            'url':'http://www.northernsun.com/images/thumb/2241Spaceship.jpg',
+            'duration':5000
+            }))
+        return e
+    w.register_event(create_random_event())
+    w.register_event(create_random_event())
+    w.register_event(create_random_event())
+    w.register_event(create_random_event())
     while True:
+        w.register_event(create_random_event())
         w.render()
         w.move(raw_input())
         w.cull_events()
