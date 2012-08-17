@@ -49,8 +49,15 @@ class World(object):
     def get_events(self):
         return self.events
 
+    def move(self, direction):
+        wasd = {'w':(1,0), 'a':(0,-1), 's':(-1, 0), 'd':(0, 1)}
+        if direction in wasd:
+            m = wasd[direction]
+            self.pos[0] += m[0]
+            self.pos[1] += m[1]
 
-if __name__ == '__main__':
+
+def input_test():
     w = World()
     e = Event(json.dumps({
         'x':4,
@@ -63,6 +70,9 @@ if __name__ == '__main__':
     w.register_event(e)
     while True:
         w.render()
-        raw_input()
+        w.move(raw_input())
         w.cull_events()
+
+if __name__ == '__main__':
+    input_test()
 
