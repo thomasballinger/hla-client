@@ -6,7 +6,7 @@ class Event(object):
     def __init__(self, json_string):
         d = json.loads(json_string)
         self.duration = 0
-        for key in ['x', 'y', 'name', 'distance', 'url', 'duration']:
+        for key in ['x', 'y', 'name', 'radius', 'duration']:
             setattr(self, key, d[key])
         self.created = time.time()
         self.duration_s = self.duration / 1000.0
@@ -64,8 +64,7 @@ def input_test():
             'x':random.randint(-10, 10),
             'y':random.randint(-10, 10),
             'name':'horn',
-            'distance':10,
-            'url':'http://www.northernsun.com/images/thumb/2241Spaceship.jpg',
+            'radius':10,
             'duration':5000
             }))
         return e
