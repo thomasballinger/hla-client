@@ -1,8 +1,13 @@
 import socket
 
-HOST = 'localhost'
+import os
+
+HOST = os.environ.get('HOST', 'localhost')
+print HOST
 PORT = 8000
 
+def protocolize(s):
+    return str(len(s)) + ' ' + s
 
 class Connection(object):
     def __init__(self, name=None):
@@ -25,18 +30,16 @@ class Connection(object):
         self.s.settimeout(None)
     def event(self, name):
         print 'sending event', name, 'from', self
-        self.s.send('/event '+name)
-        pass
+        self.s.send(protocolize('/event '+name))
     def _set_nick(self, value):
         print 'sending nick change to', value, 'from', self
-        self.s.send('/nick '+value)
+        self.s.send(protocolize('/nick '+value))
         self._nick = value
     def _get_nick(self):
         return self._nick
-    def move(self, dir):
-        self.s.send('/move '+dir)
     name = property(_get_nick, _set_nick)
-
+    def move(self, direction):
+        self.s.send(protocolize('/move '+direction))
 
 if __name__ == '__main__':
     c = Connection()
