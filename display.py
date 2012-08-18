@@ -2,7 +2,6 @@
 
 import pyglet
 
-import assets
 import state
 
 def center_image(image):
