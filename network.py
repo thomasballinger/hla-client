@@ -43,12 +43,11 @@ if __name__ == '__main__':
     import time
     c = Connection()
     d = Connection()
-    time.sleep(1)
     c.name = 'Fred'
     d.name = 'George'
     d.event('woof')
-    print d.get_event()
-    print c.get_event()
+    print d.name, ':', d.get_event()
+    print c.name, ':', c.get_event()
 
 
 
