@@ -1,9 +1,7 @@
 import socket
 
-import os
 
-HOST = os.environ.get('HOST', 'localhost')
-print HOST
+HOST = 'localhost'
 PORT = 8000
 
 def protocolize(s):
@@ -42,8 +40,10 @@ class Connection(object):
         self.s.send(protocolize('/move '+direction))
 
 if __name__ == '__main__':
+    import time
     c = Connection()
     d = Connection()
+    time.sleep(1)
     c.name = 'Fred'
     d.name = 'George'
     d.event('woof')
