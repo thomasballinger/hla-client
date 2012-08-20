@@ -19,18 +19,20 @@ Protocol
 Clients connect to the server on a tcp port, then receive and send
 messages about events occuring. These events have the format
 
-    {
-        x:10, (arbitrarily large integers representing origin
-        y:-34, of event)
-        name:'horn',
-        distance: 7 (how close client has to be to receive event),
-        url: 'http://www.northernsun.com/images/thumb/2241Spaceship.jpg'
-        (url for media to display/play if client is interactive)
-        duration: 200 (number of milliseconds it is suggested for the
-          client to maintain this event, if transient)
-    }
+   ascii digits representing num bytes message takes up, terminated by a space
+   | aforementioned space (doesn't count toward the message length)
+   | | Largest radius at which event is perceivable to a client
+   | | |  x-position of event
+   | | |  |  y-position of event
+   | | |  |  |  Display name of event
+   | | |  |  |  | 
+   18 17 217 23 Big Boom
 
+over a tcp connection. Events are sent to the server using similar format;
 
+    12 /nick thomas
+    7 /move N
+    16 /event Honk Horn
 
 Install
 -------
