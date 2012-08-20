@@ -34,6 +34,14 @@ over a tcp connection. Events are sent to the server using similar format;
     7 /move N
     16 /event Honk Horn
 
+Running It
+----------
+
+    python network.py
+
+will run a test that talks to a local erlang "heylooka" server
+
+
 Install
 -------
 
