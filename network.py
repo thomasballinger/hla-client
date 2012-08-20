@@ -1,7 +1,6 @@
 import socket
 import re
 
-
 HOST = 'localhost'
 PORT = 8000
 
@@ -18,6 +17,13 @@ class Connection(object):
             self.name = name
         else:
             self._nick = 'no name'
+    def get_events(self):
+        events = []
+        while True:
+            e = self.get_event()
+            if not e:
+                return events
+            events.append(e)
     def get_event(self):
         self.s.settimeout(0.2)
         try:
@@ -62,7 +68,3 @@ if __name__ == '__main__':
     print d.name, ':', d.get_event()
     print c.name, ':', c.get_event()
     print c.name, ':', c.get_event()
-
-
-
-
