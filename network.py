@@ -1,4 +1,5 @@
 import socket
+import re
 
 
 HOST = 'localhost'
@@ -12,20 +13,33 @@ class Connection(object):
         self.s = socket.socket()
         self.s.connect((HOST, PORT))
         self.messages = []
+        self.rest = ''
         if name:
             self.name = name
         else:
             self._nick = 'no name'
     def get_event(self):
-        try:
-            return self.s.recv(100)
-        except:
-            return None
-    def check_socket(self):
-        print 'checking socket for...', self
         self.s.settimeout(0.2)
-        self.messages.append(self.s.recv(100))
+        try:
+            msg = self.s.recv(100)
+        except: #TODO it's some kind of socket no data found error
+            msg = ""
         self.s.settimeout(None)
+        self.rest += msg
+        return self.extract_message()
+    def extract_message(self):
+        print 'self.rest:', self.rest
+        if not self.rest:
+            return None
+        m = re.match(r'(\d+) .', self.rest)
+        if not m:
+            print 'match not found (perhaps bad data?)'
+            return None
+        end = len(m.group(1))+int(m.group(1))+1
+        msg = self.rest[len(m.group(1))+1:end]
+        self.rest = self.rest[end:]
+        return msg
+
     def event(self, name):
         print 'sending event', name, 'from', self
         self.s.send(protocolize('/event '+name))
@@ -40,13 +54,13 @@ class Connection(object):
         self.s.send(protocolize('/move '+direction))
 
 if __name__ == '__main__':
-    import time
     c = Connection()
     d = Connection()
     c.name = 'Fred'
     d.name = 'George'
-    d.event('woof')
+    d.event('horn')
     print d.name, ':', d.get_event()
+    print c.name, ':', c.get_event()
     print c.name, ':', c.get_event()
 
 
