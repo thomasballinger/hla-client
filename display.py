@@ -2,7 +2,6 @@
 
 import pyglet
 
-import state
 
 def center_image(image):
     image.anchor_x = image.width/2
